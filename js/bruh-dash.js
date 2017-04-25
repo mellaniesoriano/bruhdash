@@ -139,30 +139,60 @@ global.bruhdash = {
    *******************/
 
   // creates an array of grouped elements
-  zip: function () {
-
+  zip: function (arr) {
+    var newArr = [];
+    for(var i = 0; i < arr.length; i++){
+      var emptyArr = [];
+      for(var j = 0; j < arguments.length; j++)
+        emptyArr.push(arguments[j][i]);
+        newArr.push(emptyArr);
+    }
+    return newArr;
   },
 
   // creates an array of grouped elements in their pre-zip configuration
-  unzip: function () {
-
+  unzip: function (arr) {
+    var newArr = [];
+    for(var i = 0; i < arr[0].length; i++){
+      var emptyArr = [];
+      for(var j = 0; j < arr.length; j++)
+        emptyArr.push(arr[j][i]);
+        newArr.push(emptyArr);
+    }
+    return newArr;
   },
 
   // creates an array of elements into groups of length of specified size
-  chunk: function(){
-
+  chunk: function(arr, size){
+    // console.log(arr);
+    // console.log(size);
+    if(size === 0){
+      var emptyArr = [];
+      return [];
+    }
+    var newArr = [];
+    for(var i = 0; i < arr.length; i+= size){
+      newArr.push(arr.slice(i, i + size));
+    }
+    return newArr;
   },
 
   // iterates over elements of a collection and invokes iteratee for each element
   // Note: this should work for arrays and objects
-  forEach: function() {
-
+  forEach: function(arr, func) {
+    for(var key in arr){
+      func(arr[key]);
+    }
   },
 
   // creates an array of values by running each element in collection thru the iteratee
   // Note: this should work for arrays and objects
-  map: function() {
-
+  map: function(arr, func) {
+    var newArr = [];
+    for(var key in arr){
+      newArr.push(func(arr[key]));
+    }
+    return newArr;
   },
 
   /*************************
